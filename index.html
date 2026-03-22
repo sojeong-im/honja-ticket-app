@@ -32,36 +32,51 @@
             </div>
         </main>
 
-        <!-- 지원하기 안내 화면 -->
+        <!-- 지원하기 안내 화면 (내부 폼으로 변경) -->
         <main id="apply-screen" class="screen">
             <header class="modal-header">
-                <h2>신규 멤버 지원서</h2>
-                <button id="close-apply" class="icon-btn">✕</button>
+                <button id="close-apply" class="icon-btn" style="font-size: 1.2rem;">← 뒤로가기</button>
             </header>
-            <div class="apply-content">
-                <p style="font-size:1.1rem; font-weight:700; color:white; margin-bottom:1rem;">"서울에서 신나게 놀아봐요"</p>
-                <p>다양한 성향(E/I)들이 모여 함께 놀고 먹는 모임입니다.</p>
-                <ul style="text-align:left; color:#a0aabf; margin-top:1rem; margin-bottom:1.5rem; font-size:0.9rem; line-height:1.6; padding-left:1.5rem;">
-                    <li>👉🏻 <strong>I (힐링):</strong> 카페 사진, 조용한 영화, 전시회 후 귀가</li>
-                    <li>👉🏻 <strong>E (에너지):</strong> 롤러장, 볼링, 노래방, 구기종목</li>
-                </ul>
-                <p style="color:var(--accent-glow); font-weight:600; margin-bottom:2rem;">모임 자유참여가능 ⚡️</p>
+            <div class="apply-content" style="text-align:left; margin-top: 1rem; padding: 2rem;">
+                <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">신규 멤버 지원서</h2>
+                <p style="color:var(--text-secondary); margin-bottom: 2rem; font-size: 0.9rem;">"서울에서 가장 신나게 놀아봐요"<br>어떤 성향이든 누구나 즐겁게 놀 수 있습니다.</p>
                 
-                <a href="https://the-form.io/s/JIdm" target="_blank" class="glow-btn text-center" style="display:block; text-decoration:none;">공식 지원 폼으로 이동하기 🚀</a>
-                <p style="margin-top:1rem; font-size:0.75rem; color:#888;">* 탭하면 지원서(The Form) 새 창이 열립니다.</p>
+                <div class="form-group" style="margin-bottom: 1.2rem;">
+                    <label>이름</label>
+                    <input type="text" id="apply-name" class="glass-input" placeholder="홍길동">
+                </div>
+                <div class="form-group" style="margin-bottom: 1.2rem;">
+                    <label>본인의 성향은 어떤 편인가요?</label>
+                    <select id="apply-mbti" class="glass-input">
+                        <option value="">성향 선택하기</option>
+                        <option value="E">🔥 I 성향 (조용하고 따뜻한 힐링 위주)</option>
+                        <option value="I">🍵 E 성향 (활동적이고 에너지 넘치는 위주)</option>
+                        <option value="A">✨ 반반 (상황에 따라 다름)</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 1.2rem;">
+                    <label>동아리에서 가장 해보고 싶은 활동</label>
+                    <input type="text" id="apply-activity" class="glass-input" placeholder="예: 따릉이 타기, 맛집 탐방, 영화 관람">
+                </div>
+                <div class="form-group" style="margin-bottom: 2.5rem;">
+                    <label>연락처 또는 카카오톡 ID</label>
+                    <input type="text" id="apply-contact" class="glass-input" placeholder="연락받으실 번호나 ID를 적어주세요.">
+                </div>
+                
+                <button id="submit-application-btn" class="glow-btn">지원서 제출하기</button>
             </div>
         </main>
 
         <!-- 로그인 화면 -->
         <main id="login-screen" class="screen">
             <header class="modal-header" style="margin-bottom:2rem;">
-                <button id="back-to-landing-from-login" class="icon-btn">←</button>
+                <button id="back-to-landing-from-login" class="icon-btn" style="font-size: 1.2rem;">← 뒤로가기</button>
             </header>
             <div class="login-container">
                 <h2 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; text-align:center;">멤버 인증</h2>
                 <p class="brand-subtitle" style="text-align:center;">은밀한 큐레이터가 기다리고 있어요.</p>
                 <div class="login-form">
-                    <input type="text" id="username" placeholder="이름(닉네임)을 입력하세요" class="glass-input">
+                    <input type="text" id="username" placeholder="등록된 이름(닉네임)을 입력하세요" class="glass-input">
                     <button id="login-btn" class="glow-btn">입장하기</button>
                 </div>
             </div>

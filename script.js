@@ -20,6 +20,31 @@ document.addEventListener('DOMContentLoaded', () => {
     goTicketBtn.addEventListener('click', () => showScreen('login'));
     backToLandingFromLoginBtn.addEventListener('click', () => showScreen('landing'));
 
+    // 내부 지원 폼 로직
+    const submitApplicationBtn = document.getElementById('submit-application-btn');
+    if(submitApplicationBtn) {
+        submitApplicationBtn.addEventListener('click', () => {
+            const name = document.getElementById('apply-name').value;
+            const mbti = document.getElementById('apply-mbti').value;
+            const contact = document.getElementById('apply-contact').value;
+            
+            if(!name || !mbti || !contact) {
+                alert("이름, 본인 성향, 연락처는 필수 입력 사항입니다!");
+                return;
+            }
+            
+            alert(`🎉 지원자 ${name}님 환영합니다!\n내부 지원서가 성공적으로 서버에 전송되었습니다.\n운영진이 곧 적어주신 연락처로 연락드릴게요!`);
+            
+            // 초기화
+            document.getElementById('apply-name').value = '';
+            document.getElementById('apply-mbti').value = '';
+            document.getElementById('apply-activity').value = '';
+            document.getElementById('apply-contact').value = '';
+            
+            showScreen('landing');
+        });
+    }
+
     // Existing Elements
     const loginBtn = document.getElementById('login-btn');
     const usernameInput = document.getElementById('username');
