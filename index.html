@@ -10,7 +10,7 @@
 <body>
     <div id="app">
         
-        <!-- 랜딩 화면 (최초 진입 시 두 가지 분기) -->
+        <!-- 랜딩 화면 -->
         <main id="landing-screen" class="screen active">
             <div class="landing-header">
                 <h1 class="brand-title">혼자 뭐하니?</h1>
@@ -27,12 +27,12 @@
                 <div class="split-card ticket-card" id="go-ticket">
                     <h2>바우처 뽑기</h2>
                     <p>기존 멤버 전용.<br>오늘의 시크릿 놀거리 바우처 확인하기 🎟️</p>
-                    <button class="glow-btn" style="pointer-events:none;">티켓 뽑으러 가기</button>
+                    <button class="glow-btn" style="pointer-events:none;">유형별 모임 리스트 보기</button>
                 </div>
             </div>
         </main>
 
-        <!-- 지원하기 안내 화면 (내부 폼으로 변경) -->
+        <!-- 지원하기 폼 화면 -->
         <main id="apply-screen" class="screen">
             <header class="modal-header">
                 <button id="close-apply" class="icon-btn" style="font-size: 1.2rem;">← 뒤로가기</button>
@@ -60,7 +60,7 @@
                     <input type="text" id="apply-station" class="glass-input" placeholder="예: 신촌역, 혜화역">
                 </div>
                 <div class="form-group" style="margin-bottom: 1.2rem;">
-                    <label>본인의 성향은 어떤 편인가요?</label>
+                    <label>본인의 평소 성향은?</label>
                     <select id="apply-mbti" class="glass-input">
                         <option value="">성향 선택하기</option>
                         <option value="E">🔥 E 성향 (활동적이고 에너지 넘치는 위주)</option>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="form-group" style="margin-bottom: 1.2rem;">
                     <label>동아리에서 가장 해보고 싶은 활동</label>
-                    <input type="text" id="apply-activity" class="glass-input" placeholder="예: 따릉이 타기, 맛집 탐방, 영화 관람">
+                    <input type="text" id="apply-activity" class="glass-input" placeholder="예: 따릉이 타기, 맛집 탐방">
                 </div>
                 <div class="form-group" style="margin-bottom: 2.5rem;">
                     <label>전화번호</label>
@@ -81,15 +81,15 @@
             </div>
         </main>
 
-        <!-- 메인 선택 화면 -->
+        <!-- 메인 분기 화면 (선택) -->
         <main id="selection-screen" class="screen">
             <header>
                 <div class="header-top">
                     <button id="back-from-selection" class="text-btn">← 메인으로</button>
-                    <button id="show-create-modal" class="text-btn">새 티켓 발행하기 ✍️</button>
+                    <button id="show-create-modal" class="text-btn">새 모임 열기 ✍️</button>
                 </div>
                 <h1>오늘의 무드는?</h1>
-                <p>당신의 상황에 맞는 바우처를 선택하세요.</p>
+                <p>당신의 상황에 맞는 조를 선택해 리스트를 보세요.</p>
             </header>
             
             <div class="options-grid">
@@ -111,18 +111,37 @@
                 <button class="option-btn" data-type="RANDOM">
                     <span class="icon">✨</span>
                     <span class="title">랜덤조</span>
-                    <span class="desc">은밀한 큐레이터 추천</span>
+                    <span class="desc">즉흥적인 만남</span>
                 </button>
             </div>
         </main>
 
-        <!-- 티켓 발급 로딩 화면 -->
+        <!-- 모임 리스트 화면 (신규) -->
+        <main id="list-screen" class="screen">
+            <header>
+                <div class="header-top">
+                    <button id="back-from-list" class="text-btn" style="font-size: 1.2rem;">←</button>
+                    <h2 id="list-title" style="font-size: 1.2rem; font-weight:800; color: white;">...</h2>
+                    <span style="width: 24px;"></span>
+                </div>
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="upcoming">예정된 모임</button>
+                    <button class="tab-btn" data-tab="visited">다녀온 곳</button>
+                </div>
+            </header>
+            
+            <div class="list-container" id="ticket-list-container">
+                <!-- Javascript injects list cards here -->
+            </div>
+        </main>
+
+        <!-- 티켓 로딩 화면 -->
         <div id="loading-screen" class="screen">
             <div class="loader"></div>
-            <p>다양한 모임 중 당신을 위한 자리를 찾는 중...</p>
+            <p>시크릿 바우처를 생성하는 중...</p>
         </div>
 
-        <!-- 티켓 확인 화면 -->
+        <!-- 티켓 확인 화면 (개별 모임 보기) -->
         <main id="ticket-screen" class="screen">
             <div class="ticket-container">
                 <div class="ticket" id="generated-ticket">
@@ -137,6 +156,7 @@
                             <div class="ticket-body">
                                 <span class="ticket-host">Host: <span id="ticket-host-name"></span></span>
                                 <h2 id="ticket-title">비워진 티켓</h2>
+                                <h4 id="ticket-place" style="color:var(--accent-glow); margin-bottom: 0.5rem; font-size: 0.9rem;">📍 장소</h4>
                                 <p id="ticket-desc" class="ticket-desc">...</p>
                                 
                                 <div class="ticket-info">
@@ -157,23 +177,23 @@
                     </div>
                 </div>
             </div>
-            <button id="back-btn" class="text-btn">다른 티켓 뽑기</button>
+            <button id="back-from-ticket" class="text-btn">목록으로 돌아가기</button>
         </main>
 
         <!-- 새 모임 만들기 모달 -->
         <div id="create-modal" class="modal-overlay">
-            <div class="modal-content glass-panel">
+            <div class="modal-content glass-panel" style="max-height: 80vh; overflow-y: auto;">
                 <div class="modal-header">
-                    <h2>새 티켓 발행하기</h2>
+                    <h2>새 티켓(모임) 개설</h2>
                     <button id="close-modal" class="icon-btn">✕</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>주최자 (닉네임)</label>
+                        <label>주최자 (본인 닉네임)</label>
                         <input type="text" id="new-host" class="glass-input" placeholder="예: 박지성">
                     </div>
                     <div class="form-group">
-                        <label>어떤 무드인가요?</label>
+                        <label>모임 조 분류</label>
                         <select id="new-type" class="glass-input">
                             <option value="E">🔥 E조 (에너지)</option>
                             <option value="I">🍵 I조 (힐링)</option>
@@ -182,12 +202,16 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label>실제 방문할 장소 (네이버 지도)</label>
+                        <input type="text" id="new-place" class="glass-input" placeholder="예: 스매싱볼 강남점">
+                    </div>
+                    <div class="form-group">
                         <label>모임 제목</label>
                         <input type="text" id="new-title" class="glass-input" placeholder="예: 한강 치맥 파티">
                     </div>
                     <div class="form-group">
                         <label>모임 설명</label>
-                        <textarea id="new-desc" class="glass-input" rows="3" placeholder="어떤 활동을 할 건지 묘사해주세요."></textarea>
+                        <textarea id="new-desc" class="glass-input" rows="2" placeholder="간단히 설명해주세요."></textarea>
                     </div>
                     <div class="form-row">
                         <div class="form-group half">
@@ -195,11 +219,11 @@
                             <input type="time" id="new-time" class="glass-input">
                         </div>
                         <div class="form-group half">
-                            <label>모집 인원 (숫자)</label>
+                            <label>모집 인원</label>
                             <input type="number" id="new-members" class="glass-input" placeholder="예: 4" min="1">
                         </div>
                     </div>
-                    <button id="submit-ticket" class="glow-btn">티켓 대기열에 등록하기</button>
+                    <button id="submit-ticket" class="glow-btn">모임 등록하기</button>
                 </div>
             </div>
         </div>

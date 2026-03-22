@@ -4,22 +4,32 @@ document.addEventListener('DOMContentLoaded', () => {
         landing: document.getElementById('landing-screen'),
         apply: document.getElementById('apply-screen'),
         selection: document.getElementById('selection-screen'),
+        list: document.getElementById('list-screen'),
         loading: document.getElementById('loading-screen'),
         ticket: document.getElementById('ticket-screen'),
     };
 
-    // Routing Logic for Landing
+    // Navigation Buttons
     const goApplyBtn = document.getElementById('go-apply');
     const goTicketBtn = document.getElementById('go-ticket');
     const closeApplyBtn = document.getElementById('close-apply');
     const backFromSelectionBtn = document.getElementById('back-from-selection');
+    const backFromListBtn = document.getElementById('back-from-list');
+    const backFromTicketBtn = document.getElementById('back-from-ticket');
 
     goApplyBtn.addEventListener('click', () => showScreen('apply'));
     closeApplyBtn.addEventListener('click', () => showScreen('landing'));
     goTicketBtn.addEventListener('click', () => showScreen('selection'));
     backFromSelectionBtn.addEventListener('click', () => showScreen('landing'));
+    backFromListBtn.addEventListener('click', () => showScreen('selection'));
+    
+    // 돌아가기: 티켓 화면에서 목록으로(status/type 유지)
+    backFromTicketBtn.addEventListener('click', () => {
+        document.getElementById('generated-ticket').classList.remove('revealed');
+        showScreen('list');
+    });
 
-    // 내부 지원 폼 로직
+    // 지원 폼 처리
     const submitApplicationBtn = document.getElementById('submit-application-btn');
     if(submitApplicationBtn) {
         submitApplicationBtn.addEventListener('click', () => {
@@ -46,103 +56,150 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('apply-mbti').value = '';
             document.getElementById('apply-activity').value = '';
             document.getElementById('apply-contact').value = '';
-            
             showScreen('landing');
         });
     }
 
-    // Existing Elements
-    const optionBtns = document.querySelectorAll('.option-btn');
-    const backBtn = document.getElementById('back-btn');
-    const acceptBtn = document.getElementById('accept-ticket');
-    const ticketElem = document.getElementById('generated-ticket');
-    const ticketFront = document.getElementById('ticket-front');
-    
-    // Modal
-    const createModal = document.getElementById('create-modal');
-    const showCreateBtn = document.getElementById('show-create-modal');
-    const closeBtn = document.getElementById('close-modal');
-    const submitTicketBtn = document.getElementById('submit-ticket');
-
-    // 날짜
-    const today = new Date();
-    document.getElementById('ticket-date').textContent = 
-        `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
-
-    // 기본 시크릿 바우처 데이터
+    // 데이터 초기 설정 (네이버 지도 실제 장소 반영 + 방문 여부)
     const ticketData = {
         'E': [
-            { title: "볼링장 전세내고 피자 파티", desc: "시원하게 스트라이크 치고 피자 먹을 분! 진 팀이 음료수 쏘기입니다.", time: "19:00", members: "4", current: 1, host: "박지성", bg: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=600&q=80" },
-            { title: "한강 따릉이 & 야경 출사", desc: "야경 보면서 반포대교까지 따릉이 달립니다. 예쁜 인증샷 남겨요!", time: "20:00", members: "5", current: 2, host: "김한강", bg: "https://images.unsplash.com/photo-1513622470522-26cb3341b528?w=600&q=80" }
+            { id: 'e1', title: "스트라이크 치고 피자 파티", place: "스매싱볼 강남점", desc: "시원하게 볼링 치고 피맥 쏘기!", time: "19:00", members: "4", current: 2, host: "박지성", status: "upcoming", bg: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=600&q=80" },
+            { id: 'e2', title: "나이키 러닝크루 합류", place: "여의도 한강공원 광장", desc: "다 같이 호흡 맞추며 5km 러닝 인증샷!", time: "20:00", members: "5", current: 3, host: "런닝러", status: "upcoming", bg: "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?w=600&q=80" },
+            { id: 'e3', title: "방탈출 1시간 컷 도전", place: "룸즈에이 홍대점", desc: "힌트 없이 빠르게 머리 써서 탈출 성공함!", time: "16:00", members: "4", current: 4, host: "코난", status: "visited", bg: "https://images.unsplash.com/photo-1574681608674-d4baedde66f9?w=600&q=80" }
         ],
         'I': [
-            { title: "서촌 독립서점 조용히 투어", desc: "각자 좋아하는 책 한 권씩 고르고, 카페에서 말없이 책만 읽을 파티장소.", time: "15:00", members: "3", current: 1, host: "최수진", bg: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&q=80" },
-            { title: "비오는 날 엘피(LP)바", desc: "음악에만 집중할 수 있는 어둑한 LP바. 조용히 음악 들으며 힐링해요.", time: "21:00", members: "2", current: 1, host: "이무드", bg: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" }
+            { id: 'i1', title: "서촌 브런치와 독서 모임", place: "어스핸드위치 서촌점", desc: "각자 좋아하는 책 가져가서 조용히 브런치 냠냠.", time: "11:00", members: "3", current: 1, host: "최수진", status: "upcoming", bg: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&q=80" },
+            { id: 'i2', title: "재즈바에서 와인 한 잔", place: "연남동 오아시스", desc: "서로 대화 없이 라이브 음악에만 집중할 파티원.", time: "21:00", members: "2", current: 1, host: "이무드", status: "upcoming", bg: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" },
+            { id: 'i3', title: "요시고 사진전 감상", place: "그라운드시소 서촌", desc: "사진전 조용히 보고 근처에서 차 마시고 헤어졌어요.", time: "14:00", members: "2", current: 2, host: "사진광", status: "visited", bg: "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80" }
         ],
         'STUDY': [
-            { title: "도서관 오픈런 러닝 파티", desc: "아침 8시! 도서관에서 좋은 자리 맡고 모닝 커피 마셔요.", time: "08:00", members: "4", current: 2, host: "김열공", bg: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&q=80" },
-            { title: "새벽 2시 안암 24시 국밥", desc: "밤샘 공부하다가 잠시 국밥 한 그릇 때리고 오실 분 구합니다.", time: "02:00", members: "3", current: 1, host: "배고픔", bg: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" }
+            { id: 's1', title: "밤샘 코딩 모임", place: "작심스터디카페 신촌점", desc: "각자 할거 가져와서 새벽 2시까지 빡공.", time: "22:00", members: "4", current: 2, host: "김열공", status: "upcoming", bg: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&q=80" },
+            { id: 's2', title: "도서관 오픈런 모닝 커피", place: "연세대학교 중앙도서관", desc: "아침 8시! 도서관에서 좋은 자리 맡고 빡공 완료.", time: "08:00", members: "3", current: 3, host: "얼리버드", status: "visited", bg: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" }
         ],
         'RANDOM': [
-            { title: "즉흥 바다 드라이브", desc: "쏘카 빌렸습니다. 그냥 아무 데나 가서 바다 보고 오실 낭만파 1명 구함.", time: "23:00", members: "2", current: 1, host: "조즉흥", bg: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" }
+            { id: 'r1', title: "즉흥 야간 드라이브", place: "북악스카이웨이 팔각정", desc: "아무 생각 없이 바람 쐬러 쏘카 렌트 갈 사람.", time: "23:00", members: "2", current: 1, host: "조즉흥", status: "upcoming", bg: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" },
+            { id: 'r2', title: "급 육회에 막걸리", place: "광장시장 육회자매집", desc: "비 와서 급 땡겨서 먹방 제대로 찍고 옴.", time: "18:00", members: "4", current: 4, host: "먹보", status: "visited", bg: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" }
         ]
     };
+
+    let currentListType = 'E';
+    let currentTab = 'upcoming';
 
     function showScreen(screenName) {
         Object.values(screens).forEach(s => s.classList.remove('active'));
         screens[screenName].classList.add('active');
     }
 
-    // 티켓 발급 로직
-    function generateTicket(type) {
-        showScreen('loading');
-        
-        setTimeout(() => {
-            const options = ticketData[type];
-            const randomPick = options[Math.floor(Math.random() * options.length)];
-            
-            document.getElementById('ticket-host-name').textContent = randomPick.host;
-            document.getElementById('ticket-title').textContent = randomPick.title;
-            document.getElementById('ticket-desc').textContent = randomPick.desc;
-            document.getElementById('ticket-time').textContent = randomPick.time;
-            document.getElementById('ticket-members').textContent = `${randomPick.current}/${randomPick.members}`;
-            
-            const bgUrl = randomPick.bg || "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80";
-            ticketFront.style.backgroundImage = `url('${bgUrl}')`;
-
-            acceptBtn.textContent = "이 모임 합류하기";
-            acceptBtn.style.background = "linear-gradient(135deg, var(--accent-color), var(--accent-glow))";
-            acceptBtn.style.boxShadow = "0 4px 15px rgba(236, 72, 153, 0.3)";
-
-            showScreen('ticket');
-            
-            setTimeout(() => {
-                ticketElem.classList.add('revealed');
-            }, 50);
-
-        }, 1500);
-    }
-
+    // 그룹 선택 시 목록 화면 렌더링
+    const optionBtns = document.querySelectorAll('.option-btn');
     optionBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            const type = btn.getAttribute('data-type');
-            generateTicket(type);
+            currentListType = btn.getAttribute('data-type');
+            
+            const titles = { 'E': '🔥 E조 방방곡곡', 'I': '🍵 I조 고요한 힐링', 'STUDY': '📚 시험기간조 집중구역', 'RANDOM': '✨ 랜덤조 즉흥기록' };
+            document.getElementById('list-title').textContent = titles[currentListType];
+            
+            renderList();
+            showScreen('list');
         });
     });
 
-    backBtn.addEventListener('click', () => {
-        ticketElem.classList.remove('revealed');
-        showScreen('selection');
+    // 탭(예정/다녀온곳) 클릭 처리
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentTab = btn.getAttribute('data-tab');
+            renderList();
+        });
     });
+
+    // 리스트 렌더링
+    function renderList() {
+        const container = document.getElementById('ticket-list-container');
+        container.innerHTML = '';
+        
+        const listData = ticketData[currentListType].filter(item => item.status === currentTab);
+        
+        if(listData.length === 0) {
+            container.innerHTML = `<div class="empty-msg">앗! 등록된 모임 내역이 없습니다.</div>`;
+            return;
+        }
+
+        listData.forEach(item => {
+            const card = document.createElement('div');
+            card.className = `list-card ${item.status === 'visited' ? 'visited' : ''}`;
+            card.innerHTML = `
+                <img src="${item.bg}" class="list-img" alt="배경">
+                <div class="list-info">
+                    <span class="list-place">📍 ${item.place}</span>
+                    <h3>${item.title}</h3>
+                    <span class="list-desc">${item.desc}</span>
+                </div>
+            `;
+            
+            // 모임 아이템 클릭 이벤트 (티켓 보기)
+            card.addEventListener('click', () => {
+                showTicket(item);
+            });
+            
+            container.appendChild(card);
+        });
+    }
+
+    // 티켓 생성(보기) 로직
+    const acceptBtn = document.getElementById('accept-ticket');
+    const ticketElem = document.getElementById('generated-ticket');
+    const ticketFront = document.getElementById('ticket-front');
+
+    function showTicket(item) {
+        showScreen('loading');
+        
+        setTimeout(() => {
+            document.getElementById('ticket-host-name').textContent = item.host;
+            document.getElementById('ticket-title').textContent = item.title;
+            document.getElementById('ticket-place').textContent = `📍 장소 : ${item.place}`;
+            document.getElementById('ticket-desc').textContent = item.desc;
+            document.getElementById('ticket-time').textContent = item.time;
+            document.getElementById('ticket-members').textContent = `${item.current}/${item.members}`;
+            ticketFront.style.backgroundImage = `url('${item.bg}')`;
+
+            if(item.status === 'visited') {
+                acceptBtn.textContent = "이미 다녀온 멋진 모임입니다 ✨";
+                acceptBtn.disabled = true;
+                acceptBtn.style.background = "rgba(255,255,255,0.2)";
+                acceptBtn.style.boxShadow = "none";
+            } else {
+                acceptBtn.textContent = "이 모임 합류하기";
+                acceptBtn.disabled = false;
+                acceptBtn.style.background = "linear-gradient(135deg, var(--accent-color), var(--accent-glow))";
+                acceptBtn.style.boxShadow = "0 4px 15px rgba(236, 72, 153, 0.3)";
+            }
+
+            document.getElementById('ticket-date').textContent = 
+                `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
+
+            showScreen('ticket');
+            setTimeout(() => { ticketElem.classList.add('revealed'); }, 50);
+
+        }, 800);
+    }
 
     acceptBtn.addEventListener('click', () => {
         acceptBtn.textContent = "참여 완료! 호스트에게 알림 발송 ✓";
         acceptBtn.style.background = "#10b981"; // emerald
         acceptBtn.style.boxShadow = "0 4px 15px rgba(16, 185, 129, 0.4)";
         setTimeout(() => {
-            alert("환영합니다! 모임 전용 단톡방 링크가 모바일로 전송되었습니다. (시뮬레이션)");
+            alert("환영합니다! 모임 전용 단톡방 링크가 모바일로 전송되었습니다.");
         }, 500);
     });
+
+    // 새 모임 만들기 모달
+    const createModal = document.getElementById('create-modal');
+    const showCreateBtn = document.getElementById('show-create-modal');
+    const closeBtn = document.getElementById('close-modal');
+    const submitTicketBtn = document.getElementById('submit-ticket');
 
     showCreateBtn.addEventListener('click', () => createModal.classList.add('active'));
     closeBtn.addEventListener('click', () => createModal.classList.remove('active'));
@@ -150,28 +207,36 @@ document.addEventListener('DOMContentLoaded', () => {
     submitTicketBtn.addEventListener('click', () => {
         const hostName = document.getElementById('new-host').value;
         const type = document.getElementById('new-type').value;
+        const place = document.getElementById('new-place').value;
         const title = document.getElementById('new-title').value;
         const desc = document.getElementById('new-desc').value;
         const time = document.getElementById('new-time').value;
         const members = document.getElementById('new-members').value;
 
-        if(!hostName || !title || !desc || !time || !members) {
-            alert("주최자 닉네임을 포함한 모든 정보를 입력해주세요!");
+        if(!hostName || !place || !title || !desc || !time || !members) {
+            alert("주최자 닉네임과 장소를 포함한 모든 정보를 설정해주세요!");
             return;
         }
 
-        ticketData[type].push({
-            title: title, desc: desc, time: time, members: members, current: 1, host: hostName,
+        ticketData[type].unshift({
+            id: 'n_' + Date.now(),
+            title: title, place: place, desc: desc, time: time, members: members, current: 1, host: hostName, status: "upcoming",
             bg: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80"
         });
 
-        alert("모집 티켓이 발행되었습니다! 다른 멤버들이 바우처를 뽑을 때 노출됩니다.");
+        alert("목록에 훌륭한 모임이 등록되었습니다!");
         
         document.getElementById('new-host').value = '';
+        document.getElementById('new-place').value = '';
         document.getElementById('new-title').value = '';
         document.getElementById('new-desc').value = '';
         document.getElementById('new-time').value = '';
         document.getElementById('new-members').value = '';
         createModal.classList.remove('active');
+        
+        // 리스트 새로고침
+        if(document.getElementById('list-screen').classList.contains('active')) {
+            renderList();
+        }
     });
 });
