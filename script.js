@@ -1,13 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Screens
     const screens = {
+        landing: document.getElementById('landing-screen'),
+        apply: document.getElementById('apply-screen'),
         login: document.getElementById('login-screen'),
         selection: document.getElementById('selection-screen'),
         loading: document.getElementById('loading-screen'),
         ticket: document.getElementById('ticket-screen'),
     };
 
-    // Elements
+    // Routing Logic for Landing
+    const goApplyBtn = document.getElementById('go-apply');
+    const goTicketBtn = document.getElementById('go-ticket');
+    const closeApplyBtn = document.getElementById('close-apply');
+    const backToLandingFromLoginBtn = document.getElementById('back-to-landing-from-login');
+
+    goApplyBtn.addEventListener('click', () => showScreen('apply'));
+    closeApplyBtn.addEventListener('click', () => showScreen('landing'));
+    goTicketBtn.addEventListener('click', () => showScreen('login'));
+    backToLandingFromLoginBtn.addEventListener('click', () => showScreen('landing'));
+
+    // Existing Elements
     const loginBtn = document.getElementById('login-btn');
     const usernameInput = document.getElementById('username');
     const welcomeMsg = document.getElementById('welcome-msg');
@@ -31,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('ticket-date').textContent = 
         `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(2, '0')}.${String(today.getDate()).padStart(2, '0')}`;
 
-    // 기본 시크릿 바우처 데이터 (실제 동아리 활동같은 고퀄리티 사진 URL 적용)
+    // 기본 시크릿 바우처 데이터
     const ticketData = {
         'E': [
             { title: "볼링장 전세내고 피자 파티", desc: "시원하게 스트라이크 치고 피자 먹을 분! 진 팀이 음료수 쏘기입니다.", time: "19:00", members: "4", current: 1, host: "박지성", bg: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=600&q=80" },
@@ -59,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loginBtn.addEventListener('click', () => {
         const name = usernameInput.value.trim();
         if(!name) {
-            alert("닉네임을 입력해주세요!");
+            alert("이름을 입력해주세요!");
             return;
         }
         currentUser = name;
@@ -81,12 +94,10 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('ticket-time').textContent = randomPick.time;
             document.getElementById('ticket-members').textContent = `${randomPick.current}/${randomPick.members}`;
             
-            // 배경 이미지 적용 (업로드한 이미지가 있으면 그것, 아니면 기본 예쁜 배경)
             const bgUrl = randomPick.bg || "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80";
             ticketFront.style.backgroundImage = `url('${bgUrl}')`;
 
-            // 버튼 초기화
-            acceptBtn.textContent = "이 티켓 수락하기";
+            acceptBtn.textContent = "이 모임 합류하기";
             acceptBtn.style.background = "linear-gradient(135deg, var(--accent-color), var(--accent-glow))";
             acceptBtn.style.boxShadow = "0 4px 15px rgba(236, 72, 153, 0.3)";
 
@@ -99,7 +110,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1500);
     }
 
-    // 무드 선택 메뉴
     optionBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const type = btn.getAttribute('data-type');
@@ -107,27 +117,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 티켓 닫기
     backBtn.addEventListener('click', () => {
         ticketElem.classList.remove('revealed');
         showScreen('selection');
     });
 
-    // 티켓 수락
     acceptBtn.addEventListener('click', () => {
-        acceptBtn.textContent = "수락 & 매칭 완료 ✓";
+        acceptBtn.textContent = "참여 완료! 호스트에게 알림 발송 ✓";
         acceptBtn.style.background = "#10b981"; // emerald
         acceptBtn.style.boxShadow = "0 4px 15px rgba(16, 185, 129, 0.4)";
         setTimeout(() => {
-            alert("은밀한 큐레이터가 모임 방으로 당신을 초대합니다! (채팅방 이동 시뮬레이션)");
-        }, 300);
+            alert("환영합니다! 모임 전용 단톡방 링크가 모바일로 전송되었습니다. (시뮬레이션)");
+        }, 500);
     });
 
-    // 모달 컨트롤 (새 모임 만들기)
     showCreateBtn.addEventListener('click', () => createModal.classList.add('active'));
     closeBtn.addEventListener('click', () => createModal.classList.remove('active'));
 
-    // 티켓 생성(모임 등록) 로직
     submitTicketBtn.addEventListener('click', () => {
         const type = document.getElementById('new-type').value;
         const title = document.getElementById('new-title').value;
@@ -140,20 +146,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // 새로운 데이터 푸시 (방금 호스트가 된 나의 모임)
         ticketData[type].push({
-            title: title,
-            desc: desc,
-            time: time,
-            members: members,
-            current: 1, // 방제작자 1명
-            host: currentUser,
-            bg: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80" // 이벤트 파티용 기본 배경 (실제는 사진 업로드)
+            title: title, desc: desc, time: time, members: members, current: 1, host: currentUser,
+            bg: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80"
         });
 
-        alert("모집 티켓이 시크릿 바우처함에 등록되었습니다!");
+        alert("모집 티켓이 발행되었습니다! 다른 멤버들이 바우처를 뽑을 때 노출됩니다.");
         
-        // 폼 초기화 및 닫기
         document.getElementById('new-title').value = '';
         document.getElementById('new-desc').value = '';
         document.getElementById('new-time').value = '';
