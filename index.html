@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>혼자 뭐하니? - 시크릿 바우처</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="app">
+        <!-- 로그인 화면 -->
+        <main id="login-screen" class="screen active">
+            <div class="login-container">
+                <h1 class="brand-title">혼자 뭐하니?</h1>
+                <p class="brand-subtitle">우리 같이 놀자, 은밀한 큐레이터가 기다리고 있어요.</p>
+                <div class="login-form">
+                    <input type="text" id="username" placeholder="이름(닉네임)을 입력하세요" class="glass-input">
+                    <button id="login-btn" class="glow-btn">입장하기</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- 메인 선택 화면 -->
+        <main id="selection-screen" class="screen">
+            <header>
+                <div class="header-top">
+                    <span id="welcome-msg" class="welcome-msg">환영합니다!</span>
+                    <button id="show-create-modal" class="text-btn">새 티켓(모임) 발행하기 ✍️</button>
+                </div>
+                <h1>오늘의 무드는?</h1>
+                <p>당신의 상황에 맞는 바우처를 선택하세요.</p>
+            </header>
+            
+            <div class="options-grid">
+                <button class="option-btn" data-type="E">
+                    <span class="icon">🔥</span>
+                    <span class="title">E조</span>
+                    <span class="desc">에너지 발산, 텐션 업!</span>
+                </button>
+                <button class="option-btn" data-type="I">
+                    <span class="icon">🍵</span>
+                    <span class="title">I조</span>
+                    <span class="desc">잔잔하고 고요한 힐링</span>
+                </button>
+                <button class="option-btn" data-type="STUDY">
+                    <span class="icon">📚</span>
+                    <span class="title">시험기간조</span>
+                    <span class="desc">함께 모여 빡공 모드</span>
+                </button>
+                <button class="option-btn" data-type="RANDOM">
+                    <span class="icon">✨</span>
+                    <span class="title">랜덤조</span>
+                    <span class="desc">은밀한 큐레이터 추천</span>
+                </button>
+            </div>
+        </main>
+
+        <!-- 티켓 발급 로딩 화면 -->
+        <div id="loading-screen" class="screen">
+            <div class="loader"></div>
+            <p>당신을 위한 티켓을 탐색 중입니다...</p>
+        </div>
+
+        <!-- 티켓 확인 화면 -->
+        <main id="ticket-screen" class="screen">
+            <div class="ticket-container">
+                <div class="ticket" id="generated-ticket">
+                    <!-- Ticket front with background image -->
+                    <div class="ticket-front" id="ticket-front">
+                        <div class="ticket-overlay"></div>
+                        <div class="ticket-content">
+                            <div class="ticket-header">
+                                <span class="ticket-brand">혼자 뭐하니?</span>
+                                <span class="ticket-date" id="ticket-date"></span>
+                            </div>
+                            <div class="ticket-body">
+                                <span class="ticket-host">Host: <span id="ticket-host-name"></span></span>
+                                <h2 id="ticket-title">비워진 티켓</h2>
+                                <p id="ticket-desc" class="ticket-desc">...</p>
+                                
+                                <div class="ticket-info">
+                                    <div class="info-item">
+                                        <span class="label">TIME</span>
+                                        <span class="value" id="ticket-time"></span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="label">MEMBERS</span>
+                                        <span class="value" id="ticket-members"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ticket-footer">
+                                <button id="accept-ticket" class="glow-btn">이 티켓 수락하기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="back-btn" class="text-btn">다른 무드 선택하기</button>
+        </main>
+
+        <!-- 새 모임 만들기 모달 -->
+        <div id="create-modal" class="modal-overlay">
+            <div class="modal-content glass-panel">
+                <div class="modal-header">
+                    <h2>새 티켓 발행하기</h2>
+                    <button id="close-modal" class="icon-btn">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>어떤 무드인가요?</label>
+                        <select id="new-type" class="glass-input">
+                            <option value="E">🔥 E조 (에너지)</option>
+                            <option value="I">🍵 I조 (힐링)</option>
+                            <option value="STUDY">📚 시험기간조 (스터디)</option>
+                            <option value="RANDOM">✨ 랜덤 (즉흥)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>모임 제목</label>
+                        <input type="text" id="new-title" class="glass-input" placeholder="예: 한강 치맥 파티">
+                    </div>
+                    <div class="form-group">
+                        <label>모임 설명</label>
+                        <textarea id="new-desc" class="glass-input" rows="3" placeholder="어떤 활동을 할 건지 묘사해주세요."></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label>시간</label>
+                            <input type="time" id="new-time" class="glass-input">
+                        </div>
+                        <div class="form-group half">
+                            <label>모집 인원 (숫자)</label>
+                            <input type="number" id="new-members" class="glass-input" placeholder="예: 4" min="1">
+                        </div>
+                    </div>
+                    <button id="submit-ticket" class="glow-btn">티켓 등록하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
