@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const screens = {
         landing: document.getElementById('landing-screen'),
         apply: document.getElementById('apply-screen'),
-        login: document.getElementById('login-screen'),
         selection: document.getElementById('selection-screen'),
         loading: document.getElementById('loading-screen'),
         ticket: document.getElementById('ticket-screen'),
@@ -13,12 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const goApplyBtn = document.getElementById('go-apply');
     const goTicketBtn = document.getElementById('go-ticket');
     const closeApplyBtn = document.getElementById('close-apply');
-    const backToLandingFromLoginBtn = document.getElementById('back-to-landing-from-login');
+    const backFromSelectionBtn = document.getElementById('back-from-selection');
 
     goApplyBtn.addEventListener('click', () => showScreen('apply'));
     closeApplyBtn.addEventListener('click', () => showScreen('landing'));
-    goTicketBtn.addEventListener('click', () => showScreen('login'));
-    backToLandingFromLoginBtn.addEventListener('click', () => showScreen('landing'));
+    goTicketBtn.addEventListener('click', () => showScreen('selection'));
+    backFromSelectionBtn.addEventListener('click', () => showScreen('landing'));
 
     // 내부 지원 폼 로직
     const submitApplicationBtn = document.getElementById('submit-application-btn');
@@ -53,10 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Existing Elements
-    const loginBtn = document.getElementById('login-btn');
-    const usernameInput = document.getElementById('username');
-    const welcomeMsg = document.getElementById('welcome-msg');
-    
     const optionBtns = document.querySelectorAll('.option-btn');
     const backBtn = document.getElementById('back-btn');
     const acceptBtn = document.getElementById('accept-ticket');
@@ -68,8 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const showCreateBtn = document.getElementById('show-create-modal');
     const closeBtn = document.getElementById('close-modal');
     const submitTicketBtn = document.getElementById('submit-ticket');
-
-    let currentUser = "익명";
 
     // 날짜
     const today = new Date();
@@ -99,18 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.values(screens).forEach(s => s.classList.remove('active'));
         screens[screenName].classList.add('active');
     }
-
-    // 로그인 로직
-    loginBtn.addEventListener('click', () => {
-        const name = usernameInput.value.trim();
-        if(!name) {
-            alert("이름을 입력해주세요!");
-            return;
-        }
-        currentUser = name;
-        welcomeMsg.textContent = `${currentUser}님, 환영합니다!`;
-        showScreen('selection');
-    });
 
     // 티켓 발급 로직
     function generateTicket(type) {
@@ -167,24 +148,26 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn.addEventListener('click', () => createModal.classList.remove('active'));
 
     submitTicketBtn.addEventListener('click', () => {
+        const hostName = document.getElementById('new-host').value;
         const type = document.getElementById('new-type').value;
         const title = document.getElementById('new-title').value;
         const desc = document.getElementById('new-desc').value;
         const time = document.getElementById('new-time').value;
         const members = document.getElementById('new-members').value;
 
-        if(!title || !desc || !time || !members) {
-            alert("모든 정보를 입력해주세요!");
+        if(!hostName || !title || !desc || !time || !members) {
+            alert("주최자 닉네임을 포함한 모든 정보를 입력해주세요!");
             return;
         }
 
         ticketData[type].push({
-            title: title, desc: desc, time: time, members: members, current: 1, host: currentUser,
+            title: title, desc: desc, time: time, members: members, current: 1, host: hostName,
             bg: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80"
         });
 
         alert("모집 티켓이 발행되었습니다! 다른 멤버들이 바우처를 뽑을 때 노출됩니다.");
         
+        document.getElementById('new-host').value = '';
         document.getElementById('new-title').value = '';
         document.getElementById('new-desc').value = '';
         document.getElementById('new-time').value = '';
