@@ -25,18 +25,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if(submitApplicationBtn) {
         submitApplicationBtn.addEventListener('click', () => {
             const name = document.getElementById('apply-name').value;
+            const age = document.getElementById('apply-age').value;
+            const school = document.getElementById('apply-school').value;
+            const station = document.getElementById('apply-station').value;
             const mbti = document.getElementById('apply-mbti').value;
+            const activity = document.getElementById('apply-activity').value;
             const contact = document.getElementById('apply-contact').value;
             
-            if(!name || !mbti || !contact) {
-                alert("이름, 본인 성향, 연락처는 필수 입력 사항입니다!");
+            if(!name || !age || !school || !station || !mbti || !contact) {
+                alert("해보고 싶은 활동 이외의 모든 정보는 필수 입력 사항입니다!");
                 return;
             }
             
-            alert(`🎉 지원자 ${name}님 환영합니다!\n내부 지원서가 성공적으로 서버에 전송되었습니다.\n운영진이 곧 적어주신 연락처로 연락드릴게요!`);
+            alert(`🎉 ${name}님 환영합니다!\n내부 지원서가 성공적으로 접수되었습니다.\n운영진이 곧 번호(${contact})로 연락드릴게요!`);
             
             // 초기화
             document.getElementById('apply-name').value = '';
+            document.getElementById('apply-age').value = '';
+            document.getElementById('apply-school').value = '';
+            document.getElementById('apply-station').value = '';
             document.getElementById('apply-mbti').value = '';
             document.getElementById('apply-activity').value = '';
             document.getElementById('apply-contact').value = '';

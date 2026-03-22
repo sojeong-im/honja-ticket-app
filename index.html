@@ -41,16 +41,30 @@
                 <h2 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem;">신규 멤버 지원서</h2>
                 <p style="color:var(--text-secondary); margin-bottom: 2rem; font-size: 0.9rem;">"서울에서 가장 신나게 놀아봐요"<br>어떤 성향이든 누구나 즐겁게 놀 수 있습니다.</p>
                 
+                <div class="form-row" style="margin-bottom: 1.2rem;">
+                    <div class="form-group half">
+                        <label>이름</label>
+                        <input type="text" id="apply-name" class="glass-input" placeholder="홍길동">
+                    </div>
+                    <div class="form-group half">
+                        <label>나이</label>
+                        <input type="number" id="apply-age" class="glass-input" placeholder="예: 22" min="19">
+                    </div>
+                </div>
                 <div class="form-group" style="margin-bottom: 1.2rem;">
-                    <label>이름</label>
-                    <input type="text" id="apply-name" class="glass-input" placeholder="홍길동">
+                    <label>학교 (소속 대학)</label>
+                    <input type="text" id="apply-school" class="glass-input" placeholder="예: 한국대학교">
+                </div>
+                <div class="form-group" style="margin-bottom: 1.2rem;">
+                    <label>가까운 역 (주 이용 역)</label>
+                    <input type="text" id="apply-station" class="glass-input" placeholder="예: 신촌역, 혜화역">
                 </div>
                 <div class="form-group" style="margin-bottom: 1.2rem;">
                     <label>본인의 성향은 어떤 편인가요?</label>
                     <select id="apply-mbti" class="glass-input">
                         <option value="">성향 선택하기</option>
-                        <option value="E">🔥 I 성향 (조용하고 따뜻한 힐링 위주)</option>
-                        <option value="I">🍵 E 성향 (활동적이고 에너지 넘치는 위주)</option>
+                        <option value="E">🔥 E 성향 (활동적이고 에너지 넘치는 위주)</option>
+                        <option value="I">🍵 I 성향 (조용하고 따뜻한 힐링 위주)</option>
                         <option value="A">✨ 반반 (상황에 따라 다름)</option>
                     </select>
                 </div>
@@ -59,8 +73,8 @@
                     <input type="text" id="apply-activity" class="glass-input" placeholder="예: 따릉이 타기, 맛집 탐방, 영화 관람">
                 </div>
                 <div class="form-group" style="margin-bottom: 2.5rem;">
-                    <label>연락처 또는 카카오톡 ID</label>
-                    <input type="text" id="apply-contact" class="glass-input" placeholder="연락받으실 번호나 ID를 적어주세요.">
+                    <label>전화번호</label>
+                    <input type="text" id="apply-contact" class="glass-input" placeholder="예: 010-1234-5678">
                 </div>
                 
                 <button id="submit-application-btn" class="glow-btn">지원서 제출하기</button>
