@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>혼자 뭐하니? 3기 관리자 페이지</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="login-container" class="active">
+        <div class="login-box">
+            <h2>운영진 보안 로그인</h2>
+            <input type="password" id="admin-pw" placeholder="루트 비밀번호를 입력하세요">
+            <button id="login-btn">대시보드 접속</button>
+            <p id="login-error" style="color: #ff4d4f; display: none; margin-top: 10px; font-size: 0.9rem;">비밀번호가 틀렸습니다.</p>
+        </div>
+    </div>
+
+    <div id="dashboard-container">
+        <header class="dash-top">
+            <div class="dash-titles">
+                <h2>혼자 뭐하니? 3기 지원자 관리</h2>
+                <a href="index.html" class="link-home">← 메인 홈페이지 뷰 보기</a>
+            </div>
+            <div class="stats">
+                <div class="stat-box">
+                    <span>현재까지 모집된 인원</span>
+                    <strong id="total-count">0</strong>
+                </div>
+            </div>
+        </header>
+
+        <div class="table-wrapper">
+            <table id="applicants-table">
+                <thead>
+                    <tr>
+                        <th>지원자명</th>
+                        <th>나이</th>
+                        <th>학교/학과</th>
+                        <th>거주지/역</th>
+                        <th>MBTI</th>
+                        <th>연락처</th>
+                        <th>선택한 관심 활동</th>
+                        <th>지원 일시</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Javascript가 Firestore에서 실시간으로 데이터를 불러와 렌더링합니다 -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="module" src="admin.js"></script>
+</body>
+</html>

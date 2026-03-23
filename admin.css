@@ -1,0 +1,63 @@
+:root {
+    --bg-color: #f3f4f6;
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --border-color: #e5e7eb;
+    --primary-color: #4f46e5;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: 'Pretendard Variable', -apple-system, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+/* Login Screen */
+#login-container { display: none; height: 100vh; justify-content: center; align-items: center; }
+#login-container.active { display: flex; }
+
+.login-box {
+    background: white; padding: 2.5rem; border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    width: 100%; max-width: 380px; text-align: center;
+}
+.login-box h2 { margin-bottom: 2rem; font-weight: 800; color: var(--text-primary); font-size: 1.4rem;}
+.login-box input {
+    width: 100%; padding: 0.9rem; border: 1px solid var(--border-color); border-radius: 8px;
+    margin-bottom: 1rem; font-size: 1rem; outline: none; transition: border 0.3s;
+}
+.login-box input:focus { border-color: var(--primary-color); }
+.login-box button {
+    width: 100%; padding: 0.9rem; background: var(--primary-color); color: white;
+    border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+    cursor: pointer; transition: background 0.2s;
+}
+.login-box button:hover { background: #4338ca; }
+
+/* Dashboard Screen */
+#dashboard-container { display: none; padding: 3rem; max-width: 1200px; margin: 0 auto; }
+#dashboard-container.active { display: block; animation: fadeIn 0.4s ease; }
+
+@keyframes fadeIn { from {opacity: 0; transform: translateY(10px);} to {opacity: 1; transform: translateY(0);} }
+
+.dash-top { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; }
+.dash-titles h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.5rem; }
+.link-home { font-size: 0.9rem; color: var(--primary-color); text-decoration: none; font-weight: 600; }
+.link-home:hover { text-decoration: underline; }
+
+.stat-box { background: white; padding: 1.2rem 2rem; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); text-align: center; }
+.stat-box span { display: block; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;}
+.stat-box strong { font-size: 2rem; font-weight: 800; color: var(--primary-color); }
+
+.table-wrapper { background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); overflow-x: auto; border: 1px solid var(--border-color);}
+table { width: 100%; border-collapse: collapse; text-align: left; }
+thead th { background: #f9fafb; padding: 1.2rem 1rem; font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); border-bottom: 2px solid var(--border-color); }
+tbody td { padding: 1rem; font-size: 0.9rem; border-bottom: 1px solid var(--border-color); color: var(--text-primary); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #f9fafb; }
+
+.mbti-badge { background: #e0e7ff; color: #4f46e5; padding: 4px 8px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; }
+.delete-btn { background: #fee2e2; color: #ef4444; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; font-weight: 600;}
+.delete-btn:hover { background: #fecaca; }
