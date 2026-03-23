@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('click', () => {
                 const codeInput = document.getElementById('member-code-input');
                 if(!codeInput || codeInput.value !== '0314') {
-                    alert('기존 멤버 전용 기능입니다.\n올바른 멤버 코드 4자리를 최상단 칸에 입력해주세요! (정답: 0314)');
+                    alert('기존 멤버 전용 기능입니다.\n올바른 멤버 코드 4자리를 최상단 칸에 입력해주세요!');
                     if(codeInput) codeInput.focus();
                     return;
                 }
