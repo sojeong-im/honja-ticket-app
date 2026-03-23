@@ -110,20 +110,28 @@ document.addEventListener('DOMContentLoaded', () => {
         'E': [
             { id: 'e1', title: "스트라이크 치고 피자 파티", place: "스매싱볼 강남점", desc: "시원하게 볼링 치고 피맥 쏘기!", time: "19:00", members: "4", current: 2, host: "박지성", status: "upcoming", bg: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?w=600&q=80" },
             { id: 'e2', title: "나이키 러닝크루 합류", place: "여의도 한강공원 광장", desc: "다 같이 호흡 맞추며 5km 러닝 인증샷!", time: "20:00", members: "5", current: 3, host: "런닝러", status: "upcoming", bg: "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?w=600&q=80" },
-            { id: 'e3', title: "방탈출 1시간 컷 도전", place: "룸즈에이 홍대점", desc: "힌트 없이 빠르게 머리 써서 탈출 성공함!", time: "16:00", members: "4", current: 4, host: "코난", status: "visited", bg: "https://images.unsplash.com/photo-1574681608674-d4baedde66f9?w=600&q=80" }
+            { id: 'e3', title: "실내 클라이밍 첫 도전", place: "클라이머스 강남", desc: "초보도 가능한 볼더링 배우고 뿌링클 고", time: "14:00", members: "4", current: 2, host: "오운완", status: "upcoming", bg: "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600&q=80" },
+            { id: 'e4', title: "롯데월드 전세내기", place: "롯데월드 어드벤처", desc: "교복 빌려 입고 후렌치레볼루션 3번 타기", time: "10:00", members: "6", current: 6, host: "모험가", status: "visited", bg: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600&q=80" },
+            { id: 'e5', title: "방탈출 1시간 컷 도전", place: "룸즈에이 홍대점", desc: "힌트 없이 빠르게 머리 써서 탈출 성공함!", time: "16:00", members: "4", current: 4, host: "코난", status: "visited", bg: "https://images.unsplash.com/photo-1574681608674-d4baedde66f9?w=600&q=80" }
         ],
         'I': [
             { id: 'i1', title: "서촌 브런치와 독서 모임", place: "어스핸드위치 서촌점", desc: "각자 좋아하는 책 가져가서 조용히 브런치 냠냠.", time: "11:00", members: "3", current: 1, host: "최수진", status: "upcoming", bg: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&q=80" },
-            { id: 'i2', title: "재즈바에서 와인 한 잔", place: "연남동 오아시스", desc: "서로 대화 없이 라이브 음악에만 집중할 파티원.", time: "21:00", members: "2", current: 1, host: "이무드", status: "upcoming", bg: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" },
-            { id: 'i3', title: "요시고 사진전 감상", place: "그라운드시소 서촌", desc: "사진전 조용히 보고 근처에서 차 마시고 헤어졌어요.", time: "14:00", members: "2", current: 2, host: "사진광", status: "visited", bg: "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80" }
+            { id: 'i2', title: "독립서점 탐방", place: "최인아책방 역삼점", desc: "조용히 책 고르고 각자 커피 마시며 쉬는 시간.", time: "15:00", members: "4", current: 2, host: "책벌레", status: "upcoming", bg: "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?w=600&q=80" },
+            { id: 'i3', title: "라이브 재즈와 와인", place: "연남5701", desc: "대화 없이 그저 음악 감상하며 레드와인 한 잔.", time: "20:00", members: "2", current: 1, host: "이무드", status: "upcoming", bg: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" },
+            { id: 'i4', title: "요시고 사진전 감상", place: "그라운드시소 서촌", desc: "사진전 조용히 보고 근처에서 차 마시고 헤어졌어요.", time: "14:00", members: "2", current: 2, host: "사진광", status: "visited", bg: "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&q=80" },
+            { id: 'i5', title: "도자기 공방 원데이", place: "오브제룸 안국", desc: "흙 만지며 잡념 없애기, 물레 체험 힐링 완료", time: "13:00", members: "3", current: 3, host: "손재주", status: "visited", bg: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&q=80" }
         ],
         'STUDY': [
             { id: 's1', title: "밤샘 코딩 모임", place: "작심스터디카페 신촌점", desc: "각자 할거 가져와서 새벽 2시까지 빡공.", time: "22:00", members: "4", current: 2, host: "김열공", status: "upcoming", bg: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&q=80" },
-            { id: 's2', title: "도서관 오픈런 모닝 커피", place: "연세대학교 중앙도서관", desc: "아침 8시! 도서관에서 좋은 자리 맡고 빡공 완료.", time: "08:00", members: "3", current: 3, host: "얼리버드", status: "visited", bg: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" }
+            { id: 's2', title: "자격증 스터디 그룹", place: "할리스커피 신논현역점", desc: "넓은 테이블에서 각자 이어폰 꽂고 3시간 공부", time: "19:00", members: "4", current: 1, host: "합격기원", status: "upcoming", bg: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80" },
+            { id: 's3', title: "도서관 오픈런 모닝 커피", place: "연세대학교 중앙도서관", desc: "아침 8시! 도서관에서 좋은 자리 맡고 빡공 완료.", time: "08:00", members: "3", current: 3, host: "얼리버드", status: "visited", bg: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" },
+            { id: 's4', title: "그룹 프로젝트 회의", place: "스터디룸 위더스 홍대점", desc: "빔프로젝터 켜놓고 발표 자료 최종 점검 깔끔하게 끝!", time: "16:00", members: "5", current: 5, host: "팀장", status: "visited", bg: "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=600&q=80" }
         ],
         'RANDOM': [
             { id: 'r1', title: "즉흥 야간 드라이브", place: "북악스카이웨이 팔각정", desc: "아무 생각 없이 바람 쐬러 쏘카 렌트 갈 사람.", time: "23:00", members: "2", current: 1, host: "조즉흥", status: "upcoming", bg: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" },
-            { id: 'r2', title: "급 육회에 막걸리", place: "광장시장 육회자매집", desc: "비 와서 급 땡겨서 먹방 제대로 찍고 옴.", time: "18:00", members: "4", current: 4, host: "먹보", status: "visited", bg: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" }
+            { id: 'r2', title: "홍대 버스킹 구경 투어", place: "홍대 걷고싶은거리", desc: "저녁 먹고 소화시킬 겸 길거리 공연 구경해요!", time: "20:00", members: "4", current: 2, host: "노는게제일좋아", status: "upcoming", bg: "https://images.unsplash.com/photo-1470229722913-7c092c41031c?w=600&q=80" },
+            { id: 'r3', title: "익선동 한옥거리 먹방", place: "익선동 한옥거리 일대", desc: "웨이팅 없는 곳 아무데나 들어가서 디저트 뿌시기", time: "15:00", members: "3", current: 1, host: "디저트홀릭", status: "upcoming", bg: "https://images.unsplash.com/photo-1556910103-1c02745a8286?w=600&q=80" },
+            { id: 'r4', title: "급 육회에 막걸리", place: "광장시장 육회자매집", desc: "비 와서 급 땡겨서 먹방 제대로 찍고 옴.", time: "18:00", members: "4", current: 4, host: "먹보", status: "visited", bg: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" }
         ]
     };
 
@@ -184,8 +192,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             
-            // 모임 아이템 클릭 이벤트 (티켓 보기)
+            // 모임 아이템 클릭 이벤트 (티켓 보기 - 멤버 코드 인증 필수)
             card.addEventListener('click', () => {
+                const codeInput = document.getElementById('member-code-input');
+                if(!codeInput || codeInput.value !== '0314') {
+                    alert('기존 멤버 전용 기능입니다.\n올바른 멤버 코드 4자리를 최상단 칸에 입력해주세요! (정답: 0314)');
+                    if(codeInput) codeInput.focus();
+                    return;
+                }
                 showTicket(item);
             });
             
