@@ -344,6 +344,6 @@ document.addEventListener('DOMContentLoaded', () => {
             slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].classList.add('active');
-        }, 4000); // 4초마다 변경
+        }, 2500); // 2.5초마다 변경
     }
 });
