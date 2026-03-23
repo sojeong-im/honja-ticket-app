@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     activities: Array.from(selectedActivities),
                     createdAt: serverTimestamp()
                 });
-                alert(`🎉 ${name}님 환영합니다!\n선택하신 활동: ${activityStr || '없음'}\n내부 지원서가 성공적으로 파이어베이스에 전송 및 저장되었습니다.\n운영진이 곧 번호(${contact})로 연락드릴게요!`);
+                alert(`🎉 ${name}님 환영합니다!\n선택하신 활동: ${activityStr || '없음'}\n지원서 접수가 성공적으로 완료되었습니다.\n운영진이 곧 남겨주신 번호(${contact})로 연락드릴게요!`);
             } catch (e) {
                 console.error("Error adding document: ", e);
                 alert("지원서 접수 중 오류가 발생했습니다.");
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         try {
             addDoc(collection(db, "tickets"), { ...newTicket, createdAt: serverTimestamp() });
-            alert("목록에 훌륭한 모임이 파이어베이스에 안전하게 저장 및 등록되었습니다!");
+            alert("목록에 훌륭한 모임이 성공적으로 등록되었습니다!");
         } catch(e) {
             console.error(e);
             alert("오류가 발생했습니다.");
