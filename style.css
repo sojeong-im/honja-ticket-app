@@ -75,6 +75,12 @@ body {
 .text-btn:hover { color: white; }
 .text-center { text-align: center; }
 
+.chip-container { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.empty-chip-msg { color: var(--text-secondary); font-size: 0.85rem; width: 100%; border: 1px dashed rgba(255,255,255,0.2); padding: 1rem; border-radius: 12px; text-align: center; }
+.chip { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 0.5rem 1rem; font-size: 0.85rem; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; user-select: none; }
+.chip:hover { border-color: rgba(255,255,255,0.5); color: white; background: rgba(255,255,255,0.1); }
+.chip.selected { background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(236, 72, 153, 0.4)); border-color: var(--accent-glow); color: white; font-weight: 600; box-shadow: 0 4px 10px rgba(236, 72, 153, 0.2); }
+
 /* Selection Screen */
 .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
 .welcome-msg { font-size: 0.9rem; color: var(--accent-glow); font-weight: 600; }

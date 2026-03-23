@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>혼자 뭐하니? - 시크릿 바우처</title>
+    <!-- SEO Meta Tags -->
+    <title>혼자 뭐하니? | 서울 대학생 연합 동아리</title>
+    <meta name="description" content="서울에서 제일 재미있게 노는 대학생 연합 동아리 '혼자 뭐하니?'. 당신의 성향(E/I/분류)과 딱 맞는 맞춤형 활동 바우처를 제공합니다. 올 한 해 외롭지 않게 신나게 놀아봐요!">
+    <meta name="keywords" content="대학생 동아리, 서울 연합 동아리, 대외활동, 친목 도모, E성향, I성향, 스터디, 즉흥 파티">
+    <meta name="author" content="혼자 뭐하니 운영진">
+    <meta property="og:title" content="혼자 뭐하니? | 친목 동아리 모집 중">
+    <meta property="og:description" content="올해 혼자 보내지 말고 우리랑 같이 놀 영입 멤버 구합니다! 오늘의 시크릿 놀거리 바우처도 확인해 보세요.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <!-- // SEO Meta Tags -->
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet" type="text/css" />
 </head>
@@ -80,8 +89,10 @@
                     </select>
                 </div>
                 <div class="form-group" style="margin-bottom: 1.2rem;">
-                    <label>동아리에서 가장 해보고 싶은 활동</label>
-                    <input type="text" id="apply-activity" class="glass-input" placeholder="예: 따릉이 타기, 맛집 탐방">
+                    <label>동아리에서 가장 해보고 싶은 활동 (중복 선택)</label>
+                    <div id="apply-activities-container" class="chip-container">
+                        <p class="empty-chip-msg">먼저 위에서 평소 성향을 선택해주세요!</p>
+                    </div>
                 </div>
                 <div class="form-group" style="margin-bottom: 2.5rem;">
                     <label>전화번호</label>

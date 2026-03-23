@@ -29,6 +29,46 @@ document.addEventListener('DOMContentLoaded', () => {
         showScreen('list');
     });
 
+    // 성향별 활동 리스트 설정 및 동적 렌더링
+    const mbtiSelect = document.getElementById('apply-mbti');
+    const activitiesContainer = document.getElementById('apply-activities-container');
+    const selectedActivities = new Set();
+
+    const activityOptions = {
+        'E': ["한강 러닝크루 참여", "방탈출 카페 정복", "실내 클라이밍 도전", "밤샘 보드게임 파티", "노래방에서 텐션업", "볼링/포켓볼 내기", "한강 야외 치맥/피맥", "테마파크 투어", "쇼츠/댄스 챌린지", "야간 드라이브 번개"],
+        'I': ["잔잔한 재즈바 방문", "독립서점 투어", "분위기 좋은 카페 탐방", "전시회/미술관 감상", "한강 피크닉 힐링", "북카페에서 각자 할 일", "심야 영화 관람", "공방 원데이 클래스", "소규모 LP바 감상", "고요한 밤 산책"],
+        'A': ["핫플 웨이팅 후 카페투어", "즉흥 국내 뚜벅이 여행", "가벼운 등산 후 파전", "한강 따릉이 타기", "인생네컷 셀프 스튜디오", "방탈출 후 가벼운 저녁", "캐주얼한 와인/칵테일", "서울 핫플 골목 탐방", "소규모 홈파티", "대학로 연극 후 뒤풀이"]
+    };
+
+    if(mbtiSelect && activitiesContainer) {
+        mbtiSelect.addEventListener('change', (e) => {
+            const type = e.target.value;
+            activitiesContainer.innerHTML = '';
+            selectedActivities.clear();
+            
+            if(!type || !activityOptions[type]) {
+                activitiesContainer.innerHTML = '<p class="empty-chip-msg">먼저 위에서 평소 성향을 선택해주세요!</p>';
+                return;
+            }
+            
+            activityOptions[type].forEach(act => {
+                const chip = document.createElement('div');
+                chip.className = 'chip';
+                chip.textContent = act;
+                chip.addEventListener('click', () => {
+                    if(selectedActivities.has(act)) {
+                        selectedActivities.delete(act);
+                        chip.classList.remove('selected');
+                    } else {
+                        selectedActivities.add(act);
+                        chip.classList.add('selected');
+                    }
+                });
+                activitiesContainer.appendChild(chip);
+            });
+        });
+    }
+
     // 지원 폼 처리
     const submitApplicationBtn = document.getElementById('submit-application-btn');
     if(submitApplicationBtn) {
@@ -38,15 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const school = document.getElementById('apply-school').value;
             const station = document.getElementById('apply-station').value;
             const mbti = document.getElementById('apply-mbti').value;
-            const activity = document.getElementById('apply-activity').value;
             const contact = document.getElementById('apply-contact').value;
+            const activityStr = Array.from(selectedActivities).join(', ');
             
             if(!name || !age || !school || !station || !mbti || !contact) {
-                alert("해보고 싶은 활동 이외의 모든 정보는 필수 입력 사항입니다!");
+                alert("해보고 싶은 활동을 제외한 모든 정보는 필수 입력 사항입니다!");
                 return;
             }
             
-            alert(`🎉 ${name}님 환영합니다!\n내부 지원서가 성공적으로 접수되었습니다.\n운영진이 곧 번호(${contact})로 연락드릴게요!`);
+            alert(`🎉 ${name}님 환영합니다!\n선택하신 활동: ${activityStr || '없음'}\n내부 지원서가 성공적으로 접수되었습니다.\n운영진이 곧 번호(${contact})로 연락드릴게요!`);
             
             // 초기화
             document.getElementById('apply-name').value = '';
@@ -54,8 +94,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('apply-school').value = '';
             document.getElementById('apply-station').value = '';
             document.getElementById('apply-mbti').value = '';
-            document.getElementById('apply-activity').value = '';
             document.getElementById('apply-contact').value = '';
+            
+            if(activitiesContainer) {
+                activitiesContainer.innerHTML = '<p class="empty-chip-msg">먼저 위에서 평소 성향을 선택해주세요!</p>';
+            }
+            selectedActivities.clear();
+            
             showScreen('landing');
         });
     }
