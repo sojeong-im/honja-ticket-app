@@ -239,4 +239,15 @@ document.addEventListener('DOMContentLoaded', () => {
             renderList();
         }
     });
+
+    // 배경 슬라이더 로직
+    const slides = document.querySelectorAll('.bg-slider .slide');
+    if(slides.length > 0) {
+        let currentSlide = 0;
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 4000); // 4초마다 변경
+    }
 });

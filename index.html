@@ -12,22 +12,33 @@
         
         <!-- 랜딩 화면 -->
         <main id="landing-screen" class="screen active">
-            <div class="landing-header">
-                <h1 class="brand-title">혼자 뭐하니?</h1>
-                <p class="brand-subtitle">서울에서 제일 재밌게 노는 대학생 연합 동아리</p>
+            <!-- 배경 슬라이더 -->
+            <div class="bg-slider" id="bg-slider">
+                <div class="slide active" style="background-image: url('assets/media__1774274531992.jpg');"></div>
+                <div class="slide" style="background-image: url('assets/media__1774274534003.jpg');"></div>
+                <div class="slide" style="background-image: url('assets/media__1774274535181.jpg');"></div>
+                <div class="slide" style="background-image: url('assets/media__1774274536561.jpg');"></div>
+                <div class="slider-overlay"></div>
             </div>
             
-            <div class="split-layout">
-                <div class="split-card apply-card" id="go-apply">
-                    <h2>지원하기</h2>
-                    <p>올 한 해 혼자 보내지 말고, 우리랑 같이 놀 영입 멤버 구함! 🤼‍♀️</p>
-                    <button class="outline-btn">동아리 합류하기</button>
+            <div class="landing-content">
+                <div class="landing-header">
+                    <h1 class="brand-title">혼자 뭐하니?</h1>
+                    <p class="brand-subtitle">서울에서 제일 재밌게 노는 대학생 연합 동아리</p>
                 </div>
                 
-                <div class="split-card ticket-card" id="go-ticket">
-                    <h2>바우처 뽑기</h2>
-                    <p>기존 멤버 전용.<br>오늘의 시크릿 놀거리 바우처 확인하기 🎟️</p>
-                    <button class="glow-btn" style="pointer-events:none;">유형별 모임 리스트 보기</button>
+                <div class="split-layout">
+                    <div class="split-card apply-card" id="go-apply">
+                        <h2>지원하기</h2>
+                        <p>올 한 해 혼자 보내지 말고, 우리랑 같이 놀 영입 멤버 구함! 🤼‍♀️</p>
+                        <button class="outline-btn">동아리 합류하기</button>
+                    </div>
+                    
+                    <div class="split-card ticket-card" id="go-ticket">
+                        <h2>바우처 뽑기</h2>
+                        <p>기존 멤버 전용.<br>오늘의 시크릿 놀거리 바우처 확인하기 🎟️</p>
+                        <button class="glow-btn" style="pointer-events:none;">유형별 모임 리스트 보기</button>
+                    </div>
                 </div>
             </div>
         </main>
