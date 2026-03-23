@@ -1,3 +1,18 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDgg8ej78V6fWOnPmWHrJ5G9HXp0gMQgJw",
+  authDomain: "honja-ticket.firebaseapp.com",
+  projectId: "honja-ticket",
+  storageBucket: "honja-ticket.firebasestorage.app",
+  messagingSenderId: "196009153919",
+  appId: "1:196009153919:web:97f7187b5998793290364a"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 document.addEventListener('DOMContentLoaded', () => {
     // Screens
     const screens = {
@@ -86,7 +101,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            alert(`🎉 ${name}님 환영합니다!\n선택하신 활동: ${activityStr || '없음'}\n내부 지원서가 성공적으로 접수되었습니다.\n운영진이 곧 번호(${contact})로 연락드릴게요!`);
+            try {
+                addDoc(collection(db, "applications"), {
+                    name, age, school, station, mbti, contact, 
+                    activities: Array.from(selectedActivities),
+                    createdAt: serverTimestamp()
+                });
+                alert(`🎉 ${name}님 환영합니다!\n선택하신 활동: ${activityStr || '없음'}\n내부 지원서가 성공적으로 파이어베이스에 전송 및 저장되었습니다.\n운영진이 곧 번호(${contact})로 연락드릴게요!`);
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                alert("지원서 접수 중 오류가 발생했습니다.");
+            }
             
             // 초기화
             document.getElementById('apply-name').value = '';
@@ -314,13 +339,22 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        ticketData[type].unshift({
+        const newTicket = {
             id: 'n_' + Date.now(),
             title: title, place: place, desc: desc, time: time, members: members, current: 1, host: hostName, status: "upcoming",
-            bg: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80"
-        });
+            bg: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=80",
+            type: type
+        };
 
-        alert("목록에 훌륭한 모임이 등록되었습니다!");
+        ticketData[type].unshift(newTicket);
+        
+        try {
+            addDoc(collection(db, "tickets"), { ...newTicket, createdAt: serverTimestamp() });
+            alert("목록에 훌륭한 모임이 파이어베이스에 안전하게 저장 및 등록되었습니다!");
+        } catch(e) {
+            console.error(e);
+            alert("오류가 발생했습니다.");
+        }
         
         document.getElementById('new-host').value = '';
         document.getElementById('new-place').value = '';
