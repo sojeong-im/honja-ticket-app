@@ -260,7 +260,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('close-modal');
     const submitTicketBtn = document.getElementById('submit-ticket');
 
-    showCreateBtn.addEventListener('click', () => createModal.classList.add('active'));
+    showCreateBtn.addEventListener('click', () => {
+        const inputCode = prompt("새 모임을 열려면 기존 멤버 코드를 입력해주세요 (4자리)");
+        if(inputCode === '0314') {
+            createModal.classList.add('active');
+        } else if(inputCode !== null) {
+            alert("기존 멤버 코드가 올바르지 않습니다.");
+        }
+    });
     closeBtn.addEventListener('click', () => createModal.classList.remove('active'));
 
     submitTicketBtn.addEventListener('click', () => {
